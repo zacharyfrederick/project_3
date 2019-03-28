@@ -44,27 +44,30 @@ bool Wad2::read_descriptor(struct descriptor_struct &descriptor, uint32_t offset
 }
 
 char* Wad2::getMagic() {
-	return nullptr;
+	char magic[5];
+	for (int i =0; i < 4; i++) { magic[i]=header.magic[i]; }
+	magic[4] = 0;
+	return magic;
 }
 
 bool Wad2::isContent(const string& path) {
-	return true;
+	return zion->is_content(path);
 }
 
 bool Wad2::isDirectory(const string& path) {
-	return true;
+	return zion->is_directory(path);
 }
 
 int Wad2::getSize(const string& path) {
-	return 1;
+	return zion->get_size(path);
 }
 
 int Wad2::getContents(const string& path, char* buffer, int length, int offset) {
-	return 1;
+	return zion->get_contents(path, buffer, length, offset);
 }
 
 int Wad2::getDirectory(const string& path, vector<string>* directory) {
-	return 1;
+	return zion->get_directory(path, directory);
 }
 
 bool Wad2::build_file_system(string filename) {
@@ -72,7 +75,6 @@ bool Wad2::build_file_system(string filename) {
 
 	if (error != -1) {
 		read_header();
-		cout << "Read " << header.num_descriptors << " descriptor(s)\n";
 
 		for (int i=0; i < header.num_descriptors; i++) {
 			struct descriptor_struct temp;
@@ -80,11 +82,12 @@ bool Wad2::build_file_system(string filename) {
 			descriptor_table.push_back(temp);
 		}
 
-		zion->create_file_sys(descriptor_table);
+		zion->create_file_sys(descriptor_table, raw_data);
 	} else {
 		cout << "Error loading the file using fstream\n";
 	}
 
+	cout << getMagic();
 }
 
 int Wad2::read_raw_wad(const string &path) {

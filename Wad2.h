@@ -42,9 +42,6 @@ private:
 	uint32_t read_4_byte_int(uint32_t offset);
 	string read_8_byte_str(uint32_t offset);
 	void trim_descr_name(struct descriptor_struct &descr);
-
-
-
 };
 
 #endif /* WAD2_H_ */

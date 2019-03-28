@@ -19,7 +19,7 @@ class DirectoryNode: public Node2 {
 public:
 	DirectoryNode();
 	virtual ~DirectoryNode();
-	vector<Node2 *> *getChildren();
+	vector<Node2 *> getChildren();
 	void addChild(Node2 *new_node);
 	Node2 *getChild(int id);
 	string get_name();
@@ -27,6 +27,7 @@ public:
 	uint32_t get_offset();
 	void set_descriptor(descriptor_struct descriptor);
 	struct descriptor_struct descriptor;
+
 
 public:
 	vector<Node2*> children;

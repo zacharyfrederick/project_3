@@ -12,15 +12,15 @@
 
 DirectoryNode::DirectoryNode() {
 	type = DIR_NODE;
-	path = "/";
+	//path = "/";
 }
 
 DirectoryNode::~DirectoryNode() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<Node2*> *DirectoryNode::getChildren() {
-	return &children;
+vector<Node2*> DirectoryNode::getChildren() {
+	return children;
 }
 
 void DirectoryNode::addChild(Node2 *new_node) {
@@ -51,6 +51,6 @@ uint32_t DirectoryNode::get_offset() {
 
 void DirectoryNode::set_descriptor(struct descriptor_struct descriptor){
 	this->descriptor = descriptor;
-	path = descriptor.name;
+	//path = descriptor.name;
 }
 
