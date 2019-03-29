@@ -102,7 +102,7 @@ vector<string> Zion::parse_tokens(string path) {
 	vector<string> tokens;
 
 	char* temp = new char[path.length() +1];
-	strcpy_s(temp, path.length(), path.c_str());
+	strcpy(temp, path.c_str());
 
 	char* pch = strtok(temp, "/");
 	while(pch != NULL) {

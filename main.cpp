@@ -5,17 +5,18 @@
  *      Author: zacharyfrederick
  */
 
-
+#define FUSE_USE_VERSION 31
 
 #include <iostream>
 #include "Wad2.h"
 #include "Zion.h"
 #include <string>
+#include <fuse.h>
 
 using namespace std;
 
-int main() {
-	Wad2 wad;
-	wad.build_file_system("C:\\Users\\Zachary\\eclipse-workspace\\git\\project_3\\DOOM1.WAD");
-	getchar();
-}
+static struct fuse_operations zion_operations = {
+
+};
+
+int main(int argc, char *argv[]) { }
