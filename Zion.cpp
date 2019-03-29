@@ -4,7 +4,7 @@
  *  Created on: Mar 24, 2019
  *      Author: Zachary
  */
-
+#define _CRT_SECURE_NO_WARNINGS
 #include "Zion.h"
 #include "Node.h"
 #include <string>
@@ -21,6 +21,7 @@
 #include "FileNode.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+
 
 using namespace std;
 
@@ -101,7 +102,7 @@ vector<string> Zion::parse_tokens(string path) {
 	vector<string> tokens;
 
 	char* temp = new char[path.length() +1];
-	strcpy(temp, path.c_str());
+	strcpy_s(temp, path.length(), path.c_str());
 
 	char* pch = strtok(temp, "/");
 	while(pch != NULL) {
@@ -116,6 +117,7 @@ vector<string> Zion::parse_tokens(string path) {
 bool Zion::insert_by_path(string path, Node2 new_node) {
 	DirectoryNode* node = (DirectoryNode *) get_node_by_path(path);
 	node->addChild(&new_node);
+	return true;
 }
 
 void Zion::print_file_sys() {
@@ -270,3 +272,6 @@ bool Zion::copy_directory(const string path, vector<string>* directory) {
 	return true;
 }
 
+int Zion::zion_get_attr(const string *path, struct stat *stat_buffer, Zion* filesystem) {
+
+}

@@ -12,7 +12,6 @@
 #include <string>
 #include "DirectoryNode.h";
 #include <unordered_map>
-#include "FuseManager.h"
 
 using namespace std;
 
@@ -21,7 +20,6 @@ public:
 	Zion();
 	virtual ~Zion();
 	DirectoryNode root;
-	FuseManager fuse_manager;
 	uint8_t *raw_data;
 	vector<struct descriptor_struct> descriptor_table;
 	bool detect_suffix(string base, string suffix);
@@ -48,8 +46,9 @@ public:
 	bool is_valid_and_type(string path, enum Node_Type);
 	bool copy_data(char* buffer, int length, int offset);
 	bool copy_directory(const string path, vector<string> *directory);
-	int zion_get_attr(const char*, struct stat *);
-	int zion_read(const char *path, char *buf, size_t size, off_t offset,struct fuse_file_info *fi);
+	static int zion_get_attr(const string *path, struct stat *stat_buffer, Zion* filesystem);
+
+private:
 };
 
 #endif /* ZION_H_ */

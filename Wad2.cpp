@@ -20,11 +20,6 @@ Wad2::~Wad2() {
 		delete[] raw_data;
 		raw_data = nullptr;
 	}
-
-	if (zion != nullptr) {
-		delete zion;
-		zion == nullptr;
-	}
 }
 
 bool Wad2::read_header() {
@@ -32,6 +27,8 @@ bool Wad2::read_header() {
 
 	header.num_descriptors 	= (raw_data[4]<<0) | (raw_data[5]<<8) | (raw_data[6]<<16) 	| (raw_data[7]<<24);
 	header.desc_offset		= (raw_data[8]<<0) | (raw_data[9]<<8) | (raw_data[10]<<16) 	| (raw_data[11]<<24);
+
+	return true;
 }
 
 bool Wad2::read_descriptor(struct descriptor_struct &descriptor, uint32_t offset) {
@@ -41,6 +38,7 @@ bool Wad2::read_descriptor(struct descriptor_struct &descriptor, uint32_t offset
 	for (int i=8; i < 16; i++) { descriptor.name += raw_data[offset+i]; }
 
 	trim_descr_name(descriptor);
+	return true;
 }
 
 char* Wad2::getMagic() {
@@ -87,7 +85,7 @@ bool Wad2::build_file_system(string filename) {
 		cout << "Error loading the file using fstream\n";
 	}
 
-	cout << getMagic();
+	return true;
 }
 
 int Wad2::read_raw_wad(const string &path) {
@@ -104,6 +102,8 @@ int Wad2::read_raw_wad(const string &path) {
 	wadFile.seekg(0, ios::beg);
 	wadFile.read((char*) raw_data, size);
 	wadFile.close();
+
+	return size;
 }
 
 void Wad2::trim_descr_name(struct descriptor_struct& descr) {
@@ -116,4 +116,10 @@ void Wad2::trim_descr_name(struct descriptor_struct& descr) {
 	}
 
 	descr.name = temp;
+}
+
+Wad2* Wad2::loadWad(const string &path) {
+	Wad2 wad;
+	wad.build_file_system(path);
+	return &wad;
 }

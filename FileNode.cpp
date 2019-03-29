@@ -31,4 +31,3 @@ void FileNode::set_descriptor(struct descriptor_struct descriptor){
 	this->descriptor = descriptor;
 	//path = descriptor.name;
 }
-

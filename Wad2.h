@@ -30,6 +30,7 @@ public:
 	bool detect_suffix(string base, string suffix);
 	bool detect_map_marker(string name);
 	bool is_dir_descriptor(string name);
+	static Wad2* loadWad(const string &path);
 
 private:
 	vector<struct descriptor_struct> descriptor_table;
